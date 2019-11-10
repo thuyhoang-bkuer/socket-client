@@ -56,8 +56,10 @@ const Chat = ({ location }) => {
   }, [location.search]);
 
   useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages([...messages, message ]);
+    socket.on('message', (sMessage) => {
+      console.log(sMessage);
+      const {message, name} = sMessage;
+      setMessages([...messages, {text: message, sender: name} ]);
     });
 
     socket.on('roomData', ({ users }) => {
@@ -75,7 +77,13 @@ const Chat = ({ location }) => {
     event.preventDefault();
 
     if(message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
+      const sMessage = {
+        name,
+        message,
+        type: "USER",
+        status: "ONLINE"
+      }
+      socket.emit('sendMessage', sMessage, () => setMessage(''));
     }
   }
 
