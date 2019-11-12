@@ -4,7 +4,7 @@
   padding: 5px 20px;
   color: white;
   display: inline-block;
-  max-width: 80%;
+  max-width: 70%;
 }
 
 .messageText {
@@ -14,6 +14,16 @@
   font-size: 1.1em;
   word-wrap: break-word;
 }
+
+.messageLink {
+  padding-top: 10px;
+  width: 100%;
+  letter-spacing: 0;
+  float: left;
+  font-size: 1.1em;
+  word-wrap: break-word;
+}
+
 
 .messageText img {
   vertical-align: middle;
@@ -54,6 +64,14 @@
   color: white;
 }
 
+.colorBlue {
+  color: #2979FF;
+}
+
+.colorRed {
+  color: rgb(250, 53, 70)
+}
+
 .colorDark {
   color: #353535;
 }
@@ -64,4 +82,14 @@
 
 .backgroundLight {
   background: #F3F3F3;
+}
+
+
+.messageImage {
+  vertical-align: middle;
+  max-width: 90%;
+  max-height: 90%;
+  letter-spacing: 0;
+  float: right;
+
 }

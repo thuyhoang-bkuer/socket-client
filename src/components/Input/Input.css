@@ -20,8 +20,41 @@ input:focus, textarea:focus, select:focus{
   text-transform: uppercase;
   text-decoration: none;
   background: #2979FF;
-  padding: 20px;
+  font-size: 48px;
+  padding: 10px;
   display: inline-block;
   border: none;
   width: 20%;
+}
+
+.sendImage {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #f25138;
+  padding: 5px;
+  font-size: x-large;
+  border: none;
+  display: flex;
+  justify-content: center;
+  height: 50%;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+}
+
+.sendFile {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: rgb(172, 117, 243);
+  padding: 5px;
+  font-size: x-large;
+  border: none;
+  display: flex;
+  justify-content: center;
+  height: 50%;
 }
