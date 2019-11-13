@@ -22,6 +22,8 @@
   float: left;
   font-size: 1.1em;
   word-wrap: break-word;
+  text-decoration: underline;
+  cursor: default;
 }
 
 
@@ -89,7 +91,5 @@
   vertical-align: middle;
   max-width: 90%;
   max-height: 90%;
-  letter-spacing: 0;
   float: right;
-
 }

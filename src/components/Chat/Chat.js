@@ -74,6 +74,7 @@ const Chat = ({ location, history }) => {
   }, [location.search]);
 
   useEffect(() => {
+
     socket.on('message', (sMessage) => {
       console.log(sMessage);
       const {message, pictureMsg, fileMsg, type,  name} = sMessage;
@@ -90,9 +91,10 @@ const Chat = ({ location, history }) => {
         }]);
     });
 
-    // return () => {
-    //   socket.off();
-    // }
+    return () => {
+      socket.off();
+      console.log(messages);
+    }
   }, [messages]);
 
   
