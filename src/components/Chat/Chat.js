@@ -25,7 +25,7 @@ function useDidUpdate (callback, deps) {
 }
 
 const Chat = ({ location, history }) => {
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -33,11 +33,12 @@ const Chat = ({ location, history }) => {
   const [status, setStatus] = useState('ONLINE');
 
   useEffect(() => {
-    const { name, host, port } = queryString.parse(location.search);
-    const ENDPOINT = host + ':' + port;
+
+
+    const ENDPOINT = window.location.hostname + ':' + 7070;
     
-    
-    setName(name);
+    const name = "User" + Math.floor(Math.random() * 10000).toString();
+    setUsername(name);
 
     
     socket = io(ENDPOINT);
@@ -78,24 +79,27 @@ const Chat = ({ location, history }) => {
     socket.on('message', (sMessage) => {
       console.log(sMessage);
       const {message, pictureMsg, fileMsg, type,  name} = sMessage;
-      setMessages([...messages, 
-        {
-          text: message, 
-          image: pictureMsg, 
-          file: {
-            name: message, 
-            data: fileMsg
-          }, 
-          sender: name, 
-          type
-        }]);
+
+      if (name.toLowerCase() === "admin" || name === username) {
+          setMessages([...messages, 
+            {
+              text: message, 
+              image: pictureMsg, 
+              file: {
+                name: message, 
+                data: fileMsg
+              }, 
+              sender: name, 
+              type
+            }]);
+      }
     });
 
     return () => {
       socket.off();
       console.log(messages);
     }
-  }, [messages]);
+  }, [messages, username]);
 
   
 
@@ -111,6 +115,7 @@ const Chat = ({ location, history }) => {
 
   useEffect(() => {
     console.log("[Chat] Component Did Mount")
+    
 
     return () => {
       console.log("[Chat] Component Will Unmount")
@@ -127,7 +132,7 @@ const Chat = ({ location, history }) => {
     event.preventDefault();
     const status = event.target.alt
     const sMessage = {
-      name,
+      username,
       type: "STATUS",
       status
     }
@@ -140,7 +145,7 @@ const Chat = ({ location, history }) => {
 
     if(message) {
       const sMessage = {
-        name,
+        username,
         message,
         type: "USER",
         status: "ONLINE"
@@ -153,7 +158,7 @@ const Chat = ({ location, history }) => {
     console.log(base64)
     if(base64) {
       const sMessage = {
-        name,
+        username,
         message: base64,
         type: "PICTURE",
         status: "ONLINE"
@@ -165,8 +170,9 @@ const Chat = ({ location, history }) => {
   const sendFile = (filename, base64)  => {
     if(base64) {
       const sMessage = {
-        name: filename,
+        username,
         message: base64,
+        picture: filename,
         type: "FILE",
         status: "ONLINE"
       }
@@ -182,8 +188,8 @@ const Chat = ({ location, history }) => {
       :
       <div className="outerContainer">
         <div className="container">
-            <InfoBar name={name} status={status} sendStatus={sendStatus}/>
-            <Messages messages={messages} name={name} />
+            <InfoBar name={username} status={status} sendStatus={sendStatus}/>
+            <Messages messages={messages} name={username} />
             <Input message={message} setMessage={setMessage} sendFile={sendFile} sendImage={sendImage} sendMessage={sendMessage} />
         </div>
         <TextContainer />
